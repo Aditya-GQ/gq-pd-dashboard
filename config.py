@@ -21,18 +21,20 @@ except ImportError:
 def _secret(key: str, default: str = "") -> str:
     """
     Read a secret in order:
-      1. OS environment variable  (.env → loaded above, or system env)
-      2. Streamlit secrets         (st.secrets — Streamlit Community Cloud)
+      1. Streamlit secrets  (st.secrets — Streamlit Community Cloud)
+      2. OS environment variable  (.env → loaded above, or system env)
       3. default fallback
     """
-    val = os.environ.get(key)
-    if val:
-        return val
+    # Try Streamlit secrets first (works on Streamlit Cloud)
     try:
         import streamlit as st
-        return st.secrets.get(key, default)
+        val = st.secrets.get(key)
+        if val:
+            return str(val)
     except Exception:
-        return default
+        pass
+    # Fall back to environment variable (works locally with .env)
+    return os.environ.get(key, default)
 
 
 # ── Metabase ──────────────────────────────────────────────────
