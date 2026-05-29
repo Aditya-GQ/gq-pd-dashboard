@@ -11,7 +11,7 @@ from datetime import date, timedelta
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from backend.metabase_client import run_query
-from backend.query_builder   import get_lookup_query, build_recording_query, build_comment_for_app_query
+from backend.query_builder   import build_recording_query, build_comment_for_app_query
 from backend.llm_analyzer    import (
     transcribe_audio_deepgram, score_recording_transcript,
     compare_comment_to_transcript,
@@ -46,15 +46,6 @@ st.markdown("# 🎙️ PD Recording Analysis")
 st.caption("Transcribe PD call recordings → Quality scoring + Risk assessment + Tone analysis")
 st.divider()
 
-
-# ── Load lookup ───────────────────────────────────────────────
-@st.cache_data(ttl=3600, show_spinner="Loading groups…")
-def load_lookup():
-    rows = run_query(get_lookup_query())
-    return rows or []
-
-lookup = load_lookup()
-groups = sorted({r["group_name"] for r in lookup if r.get("group_name")})
 
 
 # ── Sidebar Filters ───────────────────────────────────────────
