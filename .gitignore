@@ -1,0 +1,36 @@
+# ── Secrets — NEVER commit these ─────────────────────────────
+.env
+.streamlit/secrets.toml
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# ── Virtual environments ──────────────────────────────────────
+venv/
+venv311/
+.venv/
+env/
+ENV/
+
+# ── OS / Editor ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── Streamlit cache ───────────────────────────────────────────
+.streamlit/cache/
+
+# ── Logs / temp files ─────────────────────────────────────────
+*.log
+*.tmp
+*.temp
